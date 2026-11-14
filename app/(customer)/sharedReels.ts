@@ -1,0 +1,4 @@
+'use client';
+import {useEffect,useState} from 'react';
+type Publication={id:number;status:string;caption:string};
+export function usePublishedReels<T extends {id:number;approved:boolean;caption:string}>(seed:T[]){const[entries,setEntries]=useState<Publication[]|null>(null);useEffect(()=>{let live=true;const load=async()=>{try{const r=await fetch('/api/reels',{cache:'no-store'});if(!r.ok)throw Error();const d=await r.json();if(live&&Array.isArray(d.entries))setEntries(d.entries)}catch{if(live)setEntries([])}};load();const timer=setInterval(()=>{if(!document.hidden)load()},15000);window.addEventListener('focus',load);return()=>{live=false;clearInterval(timer);window.removeEventListener('focus',load)}},[]);return seed.map(r=>{const entry=entries?.find(e=>e.id===r.id);return {...r,approved:entry?.status==='Approved',caption:entry?.caption||r.caption}})}

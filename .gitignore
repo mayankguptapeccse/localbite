@@ -1,0 +1,13 @@
+node_modules
+.next
+.vercel
+.local-data
+.env*
+!.env.example
+*.tsbuildinfo
+
+# Local output and private handoff files
+.DS_Store
+*.log
+*.zip
+localbite-staff-logins*.txt

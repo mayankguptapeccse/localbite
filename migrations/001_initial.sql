@@ -1,0 +1,17 @@
+BEGIN;
+CREATE TABLE IF NOT EXISTS restaurant_operations (
+ restaurant_id INTEGER PRIMARY KEY CHECK (restaurant_id BETWEEN 1 AND 4),
+ version INTEGER NOT NULL DEFAULT 0,
+ state_json JSONB NOT NULL
+);
+CREATE TABLE IF NOT EXISTS platform_configs (
+ key TEXT PRIMARY KEY,
+ version INTEGER NOT NULL DEFAULT 0,
+ body JSONB NOT NULL
+);
+CREATE TABLE IF NOT EXISTS login_attempts (
+ bucket TEXT PRIMARY KEY,
+ attempts INTEGER NOT NULL,
+ expires_at TIMESTAMPTZ NOT NULL
+);
+COMMIT;

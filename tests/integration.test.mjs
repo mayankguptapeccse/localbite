@@ -1,0 +1,56 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {PGlite} from '@electric-sql/pglite';
+import {handleWithDatabase} from '../server/api.mjs';
+import {hashPassword,verifyPassword} from '../server/auth.mjs';
+process.env.NODE_ENV='development';process.env.SESSION_SECRET='test-secret-not-for-production-'.repeat(3);
+const origin='https://localbite.example';
+const db=await PGlite.create();await db.exec(await readFile('migrations/001_initial.sql','utf8'));
+async function call(path,method='GET',body,cookie='',otherOrigin=origin){const headers={Origin:otherOrigin};if(cookie)headers.Cookie=cookie;if(body)headers['Content-Type']='application/json';return handleWithDatabase(new Request(origin+'/api/'+path,{method,headers,body:body?JSON.stringify(body):undefined}),async()=>db)}
+function cookie(r){return r.headers.get('set-cookie').split(';')[0]}
+let owner,admin;
+test('all roles share one database, with restaurant isolation and safe order creation',async()=>{
+ let r=await call('auth?role=owner','POST',{role:'owner',username:'owner-1',password:'localbite-demo'});assert.equal(r.status,200);owner=cookie(r);assert.match(r.headers.get('set-cookie'),/HttpOnly/);
+ r=await call('auth?role=developer','POST',{role:'developer',username:'developer',password:'localbite-demo'});assert.equal(r.status,200);admin=cookie(r);
+ assert.equal((await call('kitchen/1')).status,403);assert.equal((await call('kitchen/2','GET',null,owner)).status,403);assert.equal((await call('kitchen/2','GET',null,admin)).status,200);
+ assert.equal((await call('operations/1','PUT',{},owner,'https://evil.example')).status,403);
+ r=await call('kitchen/1','GET',null,owner);const state=await r.json();assert.equal(state.revision,null);state.accepting=true;state.menu[0]={...state.menu[0],price:125.5,stock:2,available:true};
+ r=await call('operations/1','PUT',state,owner);assert.equal(r.status,200);assert.equal((await r.json()).revision,0);
+ assert.equal((await call('operations/1','PUT',state,owner)).status,409);
+ const token='a'.repeat(64),request={token,name:'Pilot guest',notes:'Separate dip',service:'Takeaway',pickupAt:null,expectedTotal:125.5,items:[{id:1,quantity:1}]};
+ assert.equal((await call('orders/1','POST',{...request,expectedTotal:1})).status,400);
+ r=await call('orders/1','POST',request);assert.equal(r.status,200);const placed=await r.json();assert.equal(placed.total,125.5);assert.ok(!('tokenHash' in placed));assert.equal(placed.ordersAhead,0);
+ r=await call('orders/1','POST',request);assert.equal((await r.json()).id,placed.id);
+ const results=await Promise.all(['b','c'].map(ch=>call('orders/1','POST',{...request,token:ch.repeat(64)})));assert.deepEqual(results.map(r=>r.status).sort(),[200,400]);
+ const pub=await (await call('operations/1')).json();assert.equal(pub.menu[0].stock,0);assert.equal(pub.menu[0].available,false);assert.equal(pub.activeOrders,2);assert.ok(!JSON.stringify(pub).includes('Pilot guest'));assert.ok(!('orders' in pub));
+ assert.equal((await call('order-status/1','POST',{token:'d'.repeat(64)})).status,404);
+ assert.equal((await call('order-status/1','PATCH',{token,action:'reschedule',pickupAt:new Date(Date.now()+3600000).toISOString()})).status,200);
+ assert.equal((await call('kitchen/1','PATCH',{id:placed.id,status:'Ready'},owner)).status,400);
+ for(const status of ['Accepted','Preparing'])assert.equal((await call('kitchen/1','PATCH',{id:placed.id,status},owner)).status,200);
+ assert.equal((await call('order-status/1','PATCH',{token,action:'cancel'})).status,400);
+ assert.equal((await call('order-status/1','PATCH',{token,action:'reschedule',pickupAt:new Date(Date.now()+7200000).toISOString()})).status,400);
+ for(const status of ['Ready','Completed'])assert.equal((await call('kitchen/1','PATCH',{id:placed.id,status},admin)).status,200);
+ let kitchen=await (await call('kitchen/1','GET',null,admin)).json();const second=kitchen.orders.find(o=>o.id!==placed.id);assert.ok(!JSON.stringify(kitchen).includes('tokenHash'));
+ assert.equal((await call('kitchen/1','PATCH',{id:second.id,status:'Cancelled'},owner)).status,200);
+ assert.equal((await call('kitchen/1','PATCH',{id:second.id,status:'Cancelled'},owner)).status,400);
+ kitchen=await (await call('kitchen/1','GET',null,owner)).json();assert.equal(kitchen.menu[0].stock,1);kitchen.menu[0].available=true;await call('operations/1','PUT',kitchen,owner);
+ const table={tables:[{label:'A8',url:origin+'/?restaurant=1&table=A8',active:true}],revision:null};
+ assert.equal((await call('tables/2','PUT',table,owner)).status,403);assert.equal((await call('tables/1','PUT',table,owner)).status,200);
+ assert.equal((await call('orders/1','POST',{...request,token:'e'.repeat(64),service:'Dine-in',table:'A9'})).status,400);
+ r=await call('orders/1','POST',{...request,token:'e'.repeat(64),service:'Dine-in',table:'A8'});assert.equal(r.status,200);assert.equal((await r.json()).table,'A8');
+ assert.equal((await call('spotlights','PUT',{restaurantIds:[1],dishIds:[1],revision:null},owner)).status,403);
+ assert.equal((await call('spotlights','PUT',{restaurantIds:[1],dishIds:[1],revision:null},admin)).status,200);
+ assert.deepEqual((await (await call('spotlights')).json()).dishIds,[1]);
+ const wrong=owner.slice(0,-4)+'AAAA';assert.equal((await call('kitchen/1','GET',null,wrong)).status,403);
+ r=await call('auth?role=owner','DELETE',null,owner);assert.equal(r.status,200);assert.match(r.headers.get('set-cookie'),/Max-Age=0/);
+
+ const reels=await (await call('reels','GET',null,admin)).json();assert.equal(reels.entries.length,4);
+ const changed={revision:reels.revision,entries:reels.entries.map(r=>r.id===1?{...r,status:'Rejected'}:r)};
+ assert.equal((await call('reels','PUT',changed,owner)).status,403);
+ assert.equal((await call('reels','PUT',changed,admin)).status,200);
+ const customerFeed=await (await call('reels')).json();assert.equal(customerFeed.entries.length,3);assert.ok(!customerFeed.entries.some(r=>r.id===1));
+ const adminFeed=await (await call('reels','GET',null,admin)).json();assert.equal(adminFeed.entries.find(r=>r.id===1).status,'Rejected');
+ await db.close();
+});
+test('staff passwords are verified using scrypt hashes',async()=>{const hash=await hashPassword('A-private-test-password-123');assert.notEqual(hash,'A-private-test-password-123');assert.equal(await verifyPassword('A-private-test-password-123',hash),true);assert.equal(await verifyPassword('wrong',hash),false)});

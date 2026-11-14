@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "photoUrl": "/menu/item-1.jpg",
+    "photoSourceUrl": "https://www.swiggy.com/city/hyderabad/1885-ny-smash-burgers-jubilee-hills-rest1126419",
+    "photoOriginalUrl": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_jpg,q_80,w_700/FOOD_CATALOG/IMAGES/CMS/2025/8/23/f3554eb2-aa95-4c83-9023-de7b91c7ff94_aac357a5-899f-4a5d-9fe6-8652d6722876.jpg",
+    "photoAlt": "Chicken smash burger",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 2,
+    "photoUrl": "/menu/item-2.jpg",
+    "photoSourceUrl": "https://tjniigata.jp/gourmet/202101_natura/",
+    "photoOriginalUrl": "https://tjniigata.jp/assets/uploads/2021/01/06599c752da73df273407afea4749498-760x503.jpg",
+    "photoAlt": "Seven-cheese pizza",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 3,
+    "photoUrl": "/menu/item-3.jpg",
+    "photoSourceUrl": "https://www.talabat.com/egypt/olivo-mohamed-farid-tagammoa-5-west-golf-kattameya-heights",
+    "photoOriginalUrl": "https://images.deliveryhero.io/image/talabat/MenuItems/20180211_Talabat_UAE_637465665122005243.jpg",
+    "photoAlt": "Margherita pizza",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 4,
+    "photoUrl": "/menu/item-4.jpg",
+    "photoSourceUrl": "https://www.swiggy.com/city/gauriganj/zorko-brand-of-food-lovers-gauriganj-rest1029496",
+    "photoOriginalUrl": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_jpg,q_80,w_700/FOOD_CATALOG/IMAGES/CMS/2025/6/6/42af39ea-0f73-4ebb-bbcb-9bbcc8019b29_9a0f20ec-9b8c-403f-9125-3dd3f404ab45.jpg",
+    "photoAlt": "Paneer makhani pizza",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 5,
+    "photoUrl": "/menu/item-5.webp",
+    "photoSourceUrl": "https://dominoos-pizza.store.shoopy.in/products/farmhouse-SKU-0024",
+    "photoOriginalUrl": "https://image.cdn.shpy.in/99675/SKU-0024_0-1714357442506.webp?format=webp",
+    "photoAlt": "Farmhouse vegetable pizza",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 6,
+    "photoUrl": "/menu/item-6.jpg",
+    "photoSourceUrl": "https://zoeys.co.in/product-detail/peri-peri-paneer-pizza-9",
+    "photoOriginalUrl": "https://cdn.uengage.io/uploads/65417/image-2273-1777389398.jpg",
+    "photoAlt": "Peri peri paneer pizza",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 7,
+    "photoUrl": "/menu/item-7.jpg",
+    "photoSourceUrl": "https://penangfoodie.com/grab-food-all-day-promotions-deals/",
+    "photoOriginalUrl": "https://cdn.klfoodie.com/2023/08/Creamy-Mac-_-Cheese-Popcorn-Chicken.jpg",
+    "photoAlt": "Chicken mac and cheese bowl",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 8,
+    "photoUrl": "/menu/item-8.jpg",
+    "photoSourceUrl": "https://ich-liebe-kaese.de/rezepte/chicken-nuggets-mit-kaesefuellung/",
+    "photoOriginalUrl": "https://ich-liebe-kaese.de/fileadmin/_processed_/f/3/csm_rezept-chicken-nuggets-k%C3%A4sef%C3%BCllung-vertikal2_9023e19aee.jpg",
+    "photoAlt": "Cheese-filled chicken nuggets",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 9,
+    "photoUrl": "/menu/item-9.jpg",
+    "photoSourceUrl": "https://www.aljamila.com/node/747151",
+    "photoOriginalUrl": "https://static.aljamila.com/styles/1100x732/public/2023-06/5150906-1872385343.jpeg?h=82f92a78",
+    "photoAlt": "Potato and vegetable nuggets, illustrative nugget photo",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 10,
+    "photoUrl": "/menu/item-10.jpg",
+    "photoSourceUrl": "https://cookpad.com/eng/recipes/17008962",
+    "photoOriginalUrl": "https://img-global.cpcdn.com/steps/ecc2fe5de057ae83/400x400cq80/photo.jpg",
+    "photoAlt": "Cheetos chicken nuggets",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 11,
+    "photoUrl": "/menu/item-11.jpg",
+    "photoSourceUrl": "https://food.detik.com/info-kuliner/d-7304320/ini-daftar-tahta-tertinggi-ayam-krispi-yang-renyah-dan-murah",
+    "photoOriginalUrl": "https://awsimages.detik.net.id/community/media/visual/2024/04/21/ini-daftar-tahta-tertinggi-ayam-krispi-yang-renyah-dan-murah-1.jpeg?w=700",
+    "photoAlt": "Crispy fried chicken",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 12,
+    "photoUrl": "/menu/item-12.jpg",
+    "photoSourceUrl": "https://unsplash.com/s/photos/french-fries",
+    "photoOriginalUrl": "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=700&q=80",
+    "photoAlt": "Golden French fries",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 13,
+    "photoUrl": "/menu/item-13.png",
+    "photoSourceUrl": "https://bakersway.in/products/peri-peri-fries",
+    "photoOriginalUrl": "https://bakersway.in/cdn/shop/files/Peri-PeriFries_Shopify.png?v=1767891617&width=700",
+    "photoAlt": "Peri peri fries",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 14,
+    "photoUrl": "/menu/item-14.png",
+    "photoSourceUrl": "https://nutsforcheese.com/blogs/dairy-free-recipes/loaded-cheddar-cheese-fries",
+    "photoOriginalUrl": "https://nutsforcheese.com/cdn/shop/articles/Website_Recipe_Cover_Photos_2.png?v=1691176406&width=700",
+    "photoAlt": "Cheese-sauce fries, illustrative plant-based version",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 15,
+    "photoUrl": "/menu/item-15.png",
+    "photoSourceUrl": "https://forktionary.com/recipe/army-lou-s-soul-food-macaroni-and-cheese",
+    "photoOriginalUrl": "https://forktionary.s3.us-east-2.amazonaws.com/prod/images/recipe-image-8568.png",
+    "photoAlt": "Macaroni and cheese",
+    "photoKind": "illustrative"
+  },
+  {
+    "id": 16,
+    "photoUrl": "/menu/item-16.jpg",
+    "photoSourceUrl": "https://www.foodpanda.pk/restaurant/mt2l/express-cloud-kitchen",
+    "photoOriginalUrl": "https://images.deliveryhero.io/image/fd-pk/Products/97876981.jpg?width=700",
+    "photoAlt": "Crispy chicken burger",
+    "photoKind": "illustrative"
+  }
+]

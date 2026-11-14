@@ -1,0 +1,5 @@
+'use client';
+import {useState} from 'react';
+import {ImageOff} from 'lucide-react';
+type PhotoItem={name:string;photoUrl?:string;photoSourceUrl?:string;photoAlt?:string;photoKind?:string};
+export default function DishPhoto({item,compact=false}:{item:PhotoItem;compact?:boolean}){const[failed,setFailed]=useState(false);const available=!!item.photoUrl&&!failed;return <div className={'menu-photo '+(compact?'menu-photo-compact':'')}>{available?<img src={item.photoUrl} alt={item.photoKind==='user-provided'?(item.photoAlt||item.name):(item.photoAlt||item.name)+' — illustrative internet photo, not this restaurant’s photograph'} loading="lazy" onError={()=>setFailed(true)}/>:<div className="menu-photo-empty"><ImageOff size={compact?15:26}/>{!compact&&<span>Photo unavailable</span>}</div>}{!compact&&available&&item.photoKind!=='user-provided'&&<span className="menu-photo-caption">Illustrative photo{item.photoSourceUrl&&<> · <a href={item.photoSourceUrl} target="_blank" rel="noopener noreferrer">Source ↗</a></>}</span>}</div>}

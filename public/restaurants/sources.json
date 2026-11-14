@@ -1,0 +1,17 @@
+[
+  {
+    "restaurantId": 2,
+    "image": "/restaurants/restaurant-2.jpg",
+    "sourceUrl": "https://www.zomato.com/chandigarh/pizza-near-me-sector-8/order"
+  },
+  {
+    "restaurantId": 3,
+    "image": "/restaurants/restaurant-3.jpg",
+    "sourceUrl": "https://www.zomato.com/chandigarh/nugget-nation-sector-8"
+  },
+  {
+    "restaurantId": 4,
+    "image": "/restaurants/restaurant-4.jpg",
+    "sourceUrl": "https://www.zomato.com/chandigarh/the-fries-empire-sector-8"
+  }
+]

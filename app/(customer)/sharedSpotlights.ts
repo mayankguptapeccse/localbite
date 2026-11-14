@@ -1,0 +1,7 @@
+'use client';
+import {useCallback,useEffect,useState} from 'react';
+export type SharedSpotlights={restaurantIds:number[];dishIds:number[];updatedAt:string|null;revision:string|null};
+const API='/api/spotlights';
+export function useSharedSpotlights(){const[catalog,setCatalog]=useState<SharedSpotlights|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true);
+const refresh=useCallback(async(signal?:AbortSignal)=>{try{const response=await fetch(API,{credentials:'include',cache:'no-store',signal});if(!response.ok)throw Error('Spotlights could not be refreshed.');const data=await response.json();if(!Array.isArray(data.restaurantIds)||!Array.isArray(data.dishIds))throw Error('Invalid spotlight data.');setCatalog(data);setError('')}catch(e){if(signal?.aborted)return;setError('Published spotlights are temporarily unavailable. Please retry after the service is available.')}finally{if(!signal?.aborted)setLoading(false)}},[]);
+useEffect(()=>{let controller:AbortController|null=null;const load=()=>{if(document.hidden)return;controller?.abort();controller=new AbortController();refresh(controller.signal)};load();const timer=setInterval(load,15000);document.addEventListener('visibilitychange',load);window.addEventListener('focus',load);return()=>{clearInterval(timer);controller?.abort();document.removeEventListener('visibilitychange',load);window.removeEventListener('focus',load)}},[refresh]);return {catalog,error,loading,refresh:()=>refresh()}}

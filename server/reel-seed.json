@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "dish": 1,
+    "creator": "Aarav Eats",
+    "handle": "@aarav.eats.demo",
+    "caption": "Vojcart Bites \u00b7 Next to CP67 Mall, beside Zudio, Mohali. Check the current LocalBite menu for owner-published prices, available portions and pickup options.",
+    "approved": true,
+    "url": "/reels/vojcart.mp4"
+  },
+  {
+    "id": 2,
+    "dish": 2,
+    "creator": "Meher Food Trails",
+    "handle": "@meher.foodtrails.demo",
+    "caption": "Pizza Near Me \u00b7 Booth 58, Inner Market, Sector 8, Chandigarh. Check the current LocalBite menu for owner-published prices, available portions and pickup options.",
+    "approved": true,
+    "url": "/reels/pizza.mp4"
+  },
+  {
+    "id": 3,
+    "dish": 7,
+    "creator": "Kabir\u2019s Bite Guide",
+    "handle": "@kabir.bites.demo",
+    "caption": "Nugget Nation \u00b7 Sector 8, Chandigarh \u2014 confirm outlet address on Zomato. Check the current LocalBite menu for owner-published prices, available portions and pickup options.",
+    "approved": true,
+    "url": "/reels/nugget.mp4"
+  },
+  {
+    "id": 4,
+    "dish": 12,
+    "creator": "Simran Savours",
+    "handle": "@simran.savours.demo",
+    "caption": "The Fries Empire \u00b7 Booth 2, Inner Market, Sector 8, Chandigarh. Check the current LocalBite menu for owner-published prices, available portions and pickup options.",
+    "approved": true,
+    "url": "/reels/fries.mp4"
+  }
+]
